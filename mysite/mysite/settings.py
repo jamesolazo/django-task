@@ -25,7 +25,7 @@ SECRET_KEY = 'bk96q2fv4t4$$w)bat2x+0ba9z-*(w97g3$6yr$&f0horfqye='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'agile.apps.AgileConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -75,9 +77,23 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_task',
+        'USER': 'root',
+        'PASSWORD': 'richardpass',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
+}
+
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny'
+    ],
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
 
 
