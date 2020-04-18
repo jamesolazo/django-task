@@ -1,5 +1,3 @@
-import json
-
 from .models import Values, Principles
 from .serializer import ValuesSerializer, PrincipleSerializer
 
