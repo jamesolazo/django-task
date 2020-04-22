@@ -1,27 +1,52 @@
-from .models import Values, Principles
-from .serializer import ValuesSerializer, PrincipleSerializer
+import pytest
 
 from django.urls import reverse
 
 from rest_framework import status
-from rest_framework.test import APITestCase
+
+from .models import Principles, Values
+from .serializer import PrincipleSerializer, ValuesSerializer
 
 
-class ValuesListViewTestCase(APITestCase):
-    def test_values_list(self):
-        url = reverse('values-list')
-        response = self.client.get(url)
-        values = Values.objects.all()
-        serializer = ValuesSerializer(values, many=True)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, serializer.data)
+@pytest.fixture
+def api_client():
+    from rest_framework.test import APIClient
+    return APIClient()
 
 
-class PrincipleListViewTestCase(APITestCase):
-    def test_principle_list(self):
-        url = reverse('principle-list')
-        response = self.client.get(url)
-        principles = Principles.objects.all()
-        serializer = PrincipleSerializer(principles, many=True)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, serializer.data)
+@pytest.fixture
+def principle_objects():
+    return Principles.objects.all()
+
+
+@pytest.fixture
+def principle_serializer():
+    return PrincipleSerializer
+
+
+@pytest.fixture
+def values_objects():
+    return Values.objects.all()
+
+
+@pytest.fixture
+def values_serializer():
+    return ValuesSerializer
+
+
+@pytest.mark.django_db
+def test_principle(api_client, principle_objects, principle_serializer):
+    url = reverse('principle-list')
+    response = api_client.get(url)
+    serializer = principle_serializer(principle_objects, many=True)
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data == serializer.data
+
+
+@pytest.mark.django_db
+def test_values(api_client, values_objects, values_serializer):
+    url = reverse('values-list')
+    response = api_client.get(url)
+    serializer = values_serializer(values_objects, many=True)
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data == serializer.data
