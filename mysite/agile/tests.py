@@ -11,6 +11,7 @@ from .serializer import PrincipleSerializer, ValuesSerializer
 @pytest.fixture
 def api_client():
     from rest_framework.test import APIClient
+
     return APIClient()
 
 
@@ -36,7 +37,7 @@ def values_serializer():
 
 @pytest.mark.django_db
 def test_principle(api_client, principle_objects, principle_serializer):
-    url = reverse('principle-list')
+    url = reverse("principle-list")
     response = api_client.get(url)
     serializer = principle_serializer(principle_objects, many=True)
     assert response.status_code == status.HTTP_200_OK
@@ -45,7 +46,7 @@ def test_principle(api_client, principle_objects, principle_serializer):
 
 @pytest.mark.django_db
 def test_values(api_client, values_objects, values_serializer):
-    url = reverse('values-list')
+    url = reverse("values-list")
     response = api_client.get(url)
     serializer = values_serializer(values_objects, many=True)
     assert response.status_code == status.HTTP_200_OK
