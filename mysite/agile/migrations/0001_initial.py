@@ -7,27 +7,42 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Principles',
+            name="Principles",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('description', models.CharField(max_length=200)),
-                ('created_at', models.DateTimeField()),
-                ('updated_at', models.DateTimeField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("description", models.CharField(max_length=200)),
+                ("created_at", models.DateTimeField()),
+                ("updated_at", models.DateTimeField()),
             ],
         ),
         migrations.CreateModel(
-            name='Values',
+            name="Values",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200)),
-                ('description', models.TextField()),
-                ('created_at', models.DateTimeField()),
-                ('updated_at', models.DateTimeField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=200)),
+                ("description", models.TextField()),
+                ("created_at", models.DateTimeField()),
+                ("updated_at", models.DateTimeField()),
             ],
         ),
     ]
